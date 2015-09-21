@@ -233,6 +233,7 @@ PRODUCT_PACKAGES += \
     FM2 \
     FMRecord \
     libairom_jni \
+    libqcomfm_jni \
     qcom.fmradio \
     qcom.fmradio.xml
 
