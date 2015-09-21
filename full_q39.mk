@@ -18,7 +18,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from tomato device
-$(call inherit-product, device/tcl/q39/M3G.mk)
+$(call inherit-product, device/tcl/q39/device.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := q39

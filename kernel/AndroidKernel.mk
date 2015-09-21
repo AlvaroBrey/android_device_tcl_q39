@@ -26,9 +26,6 @@ endef
 endif
 
 ifeq ($(TARGET_USES_UNCOMPRESSED_KERNEL),true)
-$(info Using uncompressed kernel)
-#TARGET_PREBUILT_KERNEL := $(KERNEL_OUT)/piggy
-#else
 TARGET_PREBUILT_KERNEL := $(TARGET_PREBUILT_INT_KERNEL)
 endif
 

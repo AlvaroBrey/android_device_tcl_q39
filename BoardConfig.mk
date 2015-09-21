@@ -19,6 +19,8 @@ LOCAL_PATH := device/tcl/q39
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
+TARGET_OTA_ASSERT_DEVICE := q39,TCL_M3G,m3g,M3G,TCL
+
 # Platform
 TARGET_BOARD_PLATFORM := msm8916
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno405
@@ -41,6 +43,9 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
 TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
+
+# CPU
+TARGET_CPU_CORTEX_A53 := true
 
 # Kernel
 TARGET_KERNEL_ARCH := arm64
@@ -80,6 +85,17 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wlan.ko"
 WIFI_DRIVER_MODULE_NAME          := "wlan"
 
+# Dexopt, only if we can fit that in
+ifneq ($(TARGET_TRANSPARENT_COMPRESSION_METHOD),)
+ifeq ($(HOST_OS),linux)
+    ifeq ($(TARGET_BUILD_VARIANT),user)
+        ifeq ($(WITH_DEXPREOPT),)
+            WITH_DEXPREOPT := true
+        endif
+    endif
+endif
+endif
+
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
 USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY:= true
@@ -117,8 +133,8 @@ TARGET_SWV8_DISK_ENCRYPTION := true
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Audio
-BOARD_USES_ALSA_AUDIO                := true
-AUDIO_FEATURE_ENABLED_FM             := true
+BOARD_USES_ALSA_AUDIO := true
+AUDIO_FEATURE_ENABLED_FM := true
 TARGET_USES_QCOM_MM_AUDIO := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 
@@ -174,24 +190,11 @@ BOARD_USES_MMCUTILS := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 TARGET_RECOVERY_FSTAB := device/tcl/q39/recovery/recovery.fstab
 
-# Enable dex pre-opt to speed up initial boot
-ifneq ($(TARGET_USES_AOSP),true)
-  ifeq ($(HOST_OS),linux)
-    ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT := true
-      ifneq ($(TARGET_BUILD_VARIANT),user)
-        # Retain classes.dex in APK's for non-user builds
-        DEX_PREOPT_DEFAULT := nostripping
-      endif
-    endif
-  endif
-endif
-
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
 #TWRP
-# Recovery
+#RECOVERY_VARIANT := twrp
 DEVICE_RESOLUTION := 1080x1920
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_CUSTOM_BATTERY_PATH := /sys/devices/platform/battery/power_supply/battery

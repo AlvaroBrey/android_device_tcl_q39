@@ -279,6 +279,9 @@ on boot
     chown system system /sys/class/TP-UNLOCK/device/gesture
     chmod 0660 /sys/class/TP-UNLOCK/device/gesture
 
+    chown system system /sys/devices/virtual/TP-UNLOCK/device/gesture
+    chmod 0660 /sys/devices/virtual/TP-UNLOCK/device/gesture
+
     chmod 0660 /sys/class/input/input4/offset
     chown input system /sys/class/input/input4/offset
     chown system input /dev/input/event4

@@ -1,0 +1,64 @@
+#!/system/bin/sh
+#
+# Copyright (C) 2014 The MoKee OpenSource Project
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
+PRELOAD_APP_DIR=/system/third-app
+DATA_HASH_DIR=/data/third-md5
+PRELOAD_LOG_FILE=$DATA_HASH_DIR/log.txt
+
+if [ ! -d $DATA_HASH_DIR ]; then
+	mkdir $DATA_HASH_DIR
+fi
+
+> $PRELOAD_LOG_FILE
+
+while true; do
+	status=`getprop sys.boot_completed`
+	if [ "$status" -eq 1 ]; then
+		break
+	else
+		sleep 10
+	fi
+done
+
+for file in `ls $PRELOAD_APP_DIR`; do
+	echo "$file: Comparing md5sum of $PRELOAD_APP_DIR/$file with $DATA_HASH_DIR/${file}.md5sum" >> $PRELOAD_LOG_FILE
+	newMD5=`busybox md5sum $PRELOAD_APP_DIR/$file | busybox cut -d' ' -f1`
+	oldMD5=`cat $DATA_HASH_DIR/${file}.md5sum`
+	if [ "$newMD5" != "$oldMD5" ]; then
+		package_name=`aapt d badging $PRELOAD_APP_DIR/$file | grep "pack" | awk -F\' '{print $(NF-5)}'`
+		isInstalled=`pm path $package_name`
+		if [ -n "$isInstalled" ] || [ ! -f "$DATA_HASH_DIR/${file}.md5sum" ]; then
+			pm install -r $PRELOAD_APP_DIR/$file
+			ret=$?
+			if [ $ret -ne 0 ]; then
+				echo "$file: Install failed, error: $ret" >> $PRELOAD_LOG_FILE
+			else
+				echo "$file: Install successful, updating $DATA_HASH_DIR/${file}.md5sum" >> $PRELOAD_LOG_FILE
+				echo $newMD5 > $DATA_HASH_DIR/${file}.md5sum
+			fi
+		else
+			echo "$file: User has uninstalled, do not reinstall. Updating $DATA_HASH_DIR/${file}.md5sum" >> $PRELOAD_LOG_FILE
+			echo $newMD5 > $DATA_HASH_DIR/${file}.md5sum
+		fi
+	else
+		echo "$file: Install skipped, file unchanged"
+		echo "$file: Install skipped, file unchanged" >> $PRELOAD_LOG_FILE
+	fi
+done
+
+echo "preinstall exiting..." >> $PRELOAD_LOG_FILE

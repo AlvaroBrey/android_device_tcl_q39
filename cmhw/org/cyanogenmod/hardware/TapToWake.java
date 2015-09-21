@@ -20,7 +20,7 @@ import org.cyanogenmod.hardware.util.FileUtils;
 
 public class TapToWake {
 
-    private static String CONTROL_PATH = "/sys/class/ms-touchscreen-msg20xx/device/gesture_wakeup_mode";
+    private static String CONTROL_PATH = "/sys/class/TP-UNLOCK/device/gesture";
     private static boolean mEnabled = true;
 
     public static boolean isSupported() {
@@ -36,3 +36,4 @@ public class TapToWake {
         return FileUtils.writeLine(CONTROL_PATH, (state ? "double_click=true" : "double_click=false"));
     }
 }
+
