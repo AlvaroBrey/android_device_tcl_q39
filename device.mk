@@ -179,6 +179,11 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     memtrack.msm8916
 
+# Camera
+PRODUCT_PACKAGES += \
+    camera.msm8916 \
+    libmm-qcamera
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
