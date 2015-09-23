@@ -132,6 +132,9 @@ TARGET_SWV8_DISK_ENCRYPTION := true
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
+# Time services
+BOARD_USES_QC_TIME_SERVICES := true
+
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_FM := true
@@ -194,7 +197,6 @@ TARGET_RECOVERY_FSTAB := device/tcl/q39/recovery/recovery.fstab
 include device/qcom/sepolicy/sepolicy.mk
 
 #TWRP
-#RECOVERY_VARIANT := twrp
 DEVICE_RESOLUTION := 1080x1920
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_CUSTOM_BATTERY_PATH := /sys/devices/platform/battery/power_supply/battery
