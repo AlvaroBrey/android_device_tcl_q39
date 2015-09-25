@@ -229,42 +229,6 @@ on boot
     chown root system /sys/class/sensors/akm09911-mag/calibrate
     chown root system /sys/class/sensors/akm09911-mag/poll_delay
 
-    chown root system /sys/class/sensors/bmg160/enable
-    chown root system /sys/class/sensors/bmg160/calibrate
-    chown root system /sys/class/sensors/bmg160/poll_delay
-
-    chown root system /sys/class/sensors/kionix-accel/enable
-    chown root system /sys/class/sensors/kionix-accel/calibrate
-    chown root system /sys/class/sensors/kionix-accel/poll_delay
-
-    chown root system /sys/class/sensors/tsl27723-als/enable
-    chown root system /sys/class/sensors/tsl27723-als/calibrate
-    chown root system /sys/class/sensors/tsl27723-als/poll_delay
-
-    chown root system /sys/class/sensors/tsl27723-ps/enable
-    chown root system /sys/class/sensors/tsl27723-ps/calibrate
-    chown root system /sys/class/sensors/tsl27723-ps/poll_delay
-
-    chown root system /sys/class/sensors/rpr521-als/enable
-    chown root system /sys/class/sensors/rpr521-als/calibrate
-    chown root system /sys/class/sensors/rpr521-als/poll_delay
-
-    chown root system /sys/class/sensors/rpr521-ps/enable
-    chown root system /sys/class/sensors/rpr521-ps/calibrate
-    chown root system /sys/class/sensors/rpr521-ps/poll_delay
-
-    chown root system /sys/class/sensors/stk3x1x-ls/enable
-    chown root system /sys/class/sensors/stk3x1x-ls/calibrate
-    chown root system /sys/class/sensors/stk3x1x-ls/poll_delay
-
-    chown root system /sys/class/sensors/stk3x1x-proximity/enable
-    chown root system /sys/class/sensors/stk3x1x-proximity/calibrate
-    chown root system /sys/class/sensors/stk3x1x-proximity/poll_delay
-
-    chown root system /sys/class/ms-touchscreen-msg20xx/device/gesture_wakeup_mode
-    chown system system /sys/class/ms-touchscreen-msg20xx/device/rd_result
-    chown system system /sys/class/tp_gesture/tp_device/tp_reg_dump
-
     #[BUGFIX] bug 956570,Enable the permission to set the CPU0 sampling min  freq from Power HAL.
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
@@ -287,14 +251,9 @@ on boot
     chown system system /sys/class/TP-UNLOCK/device/gesture
     chmod 0660 /sys/class/TP-UNLOCK/device/gesture
 
-    chown system system /sys/devices/virtual/TP-UNLOCK/device/gesture
-    chmod 0660 /sys/devices/virtual/TP-UNLOCK/device/gesture
-
     chmod 0660 /sys/class/input/input4/offset
     chown input system /sys/class/input/input4/offset
     chown system input /dev/input/event4
-
-
 
 # msm specific files that need to be created on /data
 on post-fs-data
@@ -406,12 +365,6 @@ on post-fs-data
     # NFC local data and nfcee xml storage
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc
-
-# [PLATFORM]-Mod-BEGIN by TCTNB.YQJ, PR-912196, 2015/01/24
-    chown system system /sys/class/virtual-proximity/device/vendor
-    chown system system /sys/class/virtual-proximity/device/enable
-    chown system system /sys/class/virtual-proximity/device/proximity
-#[PLATFORM]-Mod-END by TCTNB.YQJ
 
 service qcomsysd /system/bin/qcom-system-daemon
     class main

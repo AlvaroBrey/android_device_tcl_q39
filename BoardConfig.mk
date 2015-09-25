@@ -194,6 +194,9 @@ BOARD_USES_MMCUTILS := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 TARGET_RECOVERY_FSTAB := device/tcl/q39/recovery/recovery.fstab
 
+# Video
+TARGET_HAVE_SIGNED_VENUS_FW := true
+
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
