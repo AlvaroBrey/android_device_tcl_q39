@@ -237,10 +237,6 @@ PRODUCT_PACKAGES += \
     qcom.fmradio \
     qcom.fmradio.xml
 
-# lights
-PRODUCT_PACKAGES += \
-    lights.msm8916
-
 PRODUCT_BOOT_JARS += qcom.fmradio
 
 # Power HAL
