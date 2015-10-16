@@ -21,19 +21,17 @@ import org.cyanogenmod.hardware.util.FileUtils;
 public class TapToWake {
 
     private static String CONTROL_PATH = "/sys/class/TP-UNLOCK/device/gesture";
-    private static boolean mEnabled = true;
 
     public static boolean isSupported() {
         return true;
     }
 
     public static boolean isEnabled()  {
-        return mEnabled;
+        return "0xcc,0:".equals(FileUtils.readOneLine(CONTROL_PATH));
     }
 
     public static boolean setEnabled(boolean state)  {
-        mEnabled = state;
-        return FileUtils.writeLine(CONTROL_PATH, (state ? "double_click=true" : "double_click=false"));
+        return FileUtils.writeLine(CONTROL_PATH, (state ? "on" : "off"));
     }
 }
 
