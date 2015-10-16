@@ -199,7 +199,9 @@ PRODUCT_PACKAGES += \
 
 # Keylayout
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/keylayout/Goodix-TS.kl:system/usr/keylayout/Goodix-TS.kl
+    $(LOCAL_PATH)/keylayout/Goodix-TS.kl:system/usr/keylayout/Goodix-TS.kl \
+    $(LOCAL_PATH)/keylayout/qwerty.idc:system/usr/idc/qwerty.idc \
+    $(LOCAL_PATH)/keylayout/qwerty2.idc:system/usr/idc/qwerty2.idc \
 
 # Keystore
 PRODUCT_PACKAGES += \
