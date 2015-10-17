@@ -203,21 +203,3 @@ TARGET_HAVE_SIGNED_VENUS_FW := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
-
-#TWRP
-DEVICE_RESOLUTION := 1080x1920
-TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
-TW_CUSTOM_BATTERY_PATH := /sys/devices/platform/battery/power_supply/battery
-TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone0/temp
-TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
-RECOVERY_SDCARD_ON_DATA := true
-BOARD_HAS_NO_REAL_SDCARD := true
-TW_USE_TOOLBOX := true
-TWHAVE_SELINUX := true
-TW_MAX_BRIGHTNESS := 255
-TW_FLASH_FROM_STORAGE := true
-TW_INTERNAL_STORAGE_PATH := "/data/media/0"
-TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
-TW_EXTERNAL_STORAGE_PATH := "/external_sd"
-TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
