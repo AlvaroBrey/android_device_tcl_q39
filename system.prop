@@ -17,6 +17,8 @@ persist.rild.nitz_short_ons_3=
 DEVICE_PROVISIONED=1
 
 # rild
+ro.ril.hsxpa=1
+ro.ril.gprsclass=10
 persist.radio.rat_on=combine
 ril.subscription.types=NV,RUIM
 persist.radio.multisim.config=dsds
@@ -24,8 +26,6 @@ ro.telephony.default_network=22
 ro.telephony.default_cdma_sub=0
 persist.radio.apm_sim_not_pwdn=1
 ro.ril.force_eri_from_xml=tru
-ro.sys.partner=TCL
-ro.sys.channeltype=BRAND
 persist.radio.disable_flexmap=1
 telephony.lteOnCdmaDevice=1
 
@@ -40,6 +40,7 @@ dev.pm.dyn_samplingrate=1
 persist.demo.hdmirotationlock=false
 debug.mdpcomp.idletime=600
 
+# media
 media.stagefright.enable-player=true
 media.stagefright.enable-http=true
 media.stagefright.enable-aac=true
@@ -58,6 +59,7 @@ ro.qualcomm.cabl=2
 bluetooth.hfp.client=1
 persist.fuse_sdcard=true
 
+# audio
 ro.qc.sdk.audio.ssr=false
 ro.qc.sdk.audio.fluencetype=fluence
 persist.audio.fluence.voicecall=true
@@ -68,27 +70,24 @@ audio.offload.buffer.size.kb=64
 audio.offload.min.duration.secs=30
 av.offload.enable=true
 use.voice.path.for.pcm.voip=false
-
-ro.fm.transmitter=false
 audio.offload.gapless.enabled=true
 voice.playback.conc.disabled=true
 voice.record.conc.disabled=true
 voice.voip.conc.disabled=true
+audio.dolby.ds2.enabled=true
+ro.fm.transmitter=false
+
+# usb
 ro.sys.usb.default.config=diag,serial_smd,rmnet_bam,mass_storage,adb
 persist.debug.wfd.enable=1
 persist.hwc.enable_vds=1
 vidc.enc.narrow.searchrange=1
-audio.dolby.ds2.enabled=true
-
 ro.sys.fw.use_trim_settings=true
 ro.sys.fw.empty_app_percent=50
 ro.sys.fw.trim_empty_percent=100
 ro.sys.fw.trim_cache_percent=100
 ro.sys.fw.trim_enable_memory=1073741824
-
 persist.sys.power_ctrl=1
-ro.ril.hsxpa=1
-ro.ril.gprsclass=10
 ro.adb.qemud=1
 tch.colorprocess.enabled=1
 tch.colorprocess.colorvalue=1
@@ -97,3 +96,5 @@ persist.loc.nlp_name=com.qualcomm.location
 ro.gps.agps_provider=1
 ro.pip.gated=0
 persist.sys.isUsbOtgEnabled=true
+ro.sys.partner=TCL
+ro.sys.channeltype=BRAND
