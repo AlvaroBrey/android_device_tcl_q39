@@ -88,9 +88,6 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
 WIFI_DRIVER_MODULE_NAME := "wlan"
 
-# Dexopt, only if we can fit that in
-WITH_DEXPREOPT := true
-
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
 USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY:= true
