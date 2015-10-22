@@ -186,10 +186,6 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs
 
-# GPS
-PRODUCT_PACKAGES += \
-    gps.msm8916
-
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/Goodix-TS.kl:system/usr/keylayout/Goodix-TS.kl \
