@@ -166,8 +166,8 @@ TARGET_USES_LOGD=false
 MALLOC_IMPL := dlmalloc
 
 # Init
-#TARGET_INIT_VENDOR_LIB := libinit_msm
-#TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
+TARGET_INIT_VENDOR_LIB := libinit_msm
+TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
 # PowerHAL
 TARGET_POWERHAL_VARIANT      := qcom
@@ -202,4 +202,4 @@ TARGET_RECOVERY_FSTAB := device/tcl/q39/recovery/recovery.fstab
 TARGET_HAVE_SIGNED_VENUS_FW := true
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
+#include device/qcom/sepolicy/sepolicy.mk

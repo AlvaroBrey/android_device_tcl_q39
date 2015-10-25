@@ -222,15 +222,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     qcmediaplayer
 
-# FM radio
-PRODUCT_PACKAGES += \
-    FM2 \
-    FMRecord \
-    libairom_jni \
-    libqcomfm_jni \
-    qcom.fmradio \
-    qcom.fmradio.xml
-
 PRODUCT_BOOT_JARS += qcom.fmradio
 
 # Power HAL
