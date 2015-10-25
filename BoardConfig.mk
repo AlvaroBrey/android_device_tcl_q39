@@ -159,9 +159,6 @@ BLUETOOTH_HCI_USE_MCT     := true
 QCOM_BT_USE_SMD_TTY       := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
-# Logging
-TARGET_USES_LOGD=false
-
 # Malloc
 MALLOC_IMPL := dlmalloc
 
