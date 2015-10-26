@@ -39,11 +39,12 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
+    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml
 
 # System Properties
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
+    persist.sys.usb.config=adb
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
@@ -228,6 +229,12 @@ PRODUCT_BOOT_JARS += qcom.fmradio
 PRODUCT_PACKAGES += \
     power.msm8916
 
+PRODUCT_PACKAGES +=  libstlport
+
+# Lights
+PRODUCT_PACKAGES += \
+    lights.msm8916
+
 # QC PROPRIETARY ( proprietary wifi display, if available)
 ifneq ($(QCPATH),)
 PRODUCT_BOOT_JARS += WfdCommon
@@ -256,7 +263,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Debug
 ADDITIONAL_DEFAULT_PROPERTIES += \
-    camera2.portability.force_api=1
+    camera2.portability.force_api=1 \
+    ro.secure=0 \
+    ro.adb.secure=0
 
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true \
