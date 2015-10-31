@@ -17,6 +17,7 @@ $(call inherit-product, device/tcl/q39/full_q39.mk)
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
+
 PRODUCT_BRAND := tcl
 PRODUCT_NAME := cm_q39
 BOARD_VENDOR := tcl

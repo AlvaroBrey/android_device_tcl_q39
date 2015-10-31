@@ -202,6 +202,9 @@ on boot
 
     chmod 664 /dev/ramdump_*
 
+    #Create NETMGR daemon socket area
+	 mkdir /dev/socket/netmgr 0750 radio radio
+
     chown root system /sys/class/sensors/akm09911-mag/enable
     chown root system /sys/class/sensors/akm09911-mag/calibrate
     chown root system /sys/class/sensors/akm09911-mag/poll_delay
