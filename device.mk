@@ -163,6 +163,9 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
+PRODUCT_PACKAGES += \
+    libboringssl-compat
+
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8916 \

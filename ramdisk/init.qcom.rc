@@ -228,6 +228,10 @@ on boot
     chown input system /sys/class/input/input4/offset
     chown system input /dev/input/event4
 
+    # Symbols required for TCL blobs
+    export LD_PRELOAD "/system/lib/libboringssl-compat.so"
+    export LD_PRELOAD "/system/lib64/libboringssl-compat.so"
+
 # msm specific files that need to be created on /data
 on post-fs-data
     # Create directory for TZ Apps
