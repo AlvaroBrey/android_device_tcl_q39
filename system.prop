@@ -22,6 +22,7 @@ ro.ril.gprsclass=10
 persist.radio.rat_on=combine
 ril.subscription.types=NV,RUIM
 persist.radio.multisim.config=dsds
+ro.telephony.ril.config=simactivation
 ro.telephony.default_network=22
 ro.telephony.default_cdma_sub=0
 persist.radio.apm_sim_not_pwdn=1
