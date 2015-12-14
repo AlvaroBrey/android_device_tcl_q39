@@ -44,7 +44,7 @@ PRODUCT_COPY_FILES += \
 
 # System Properties
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=adb
+    persist.sys.usb.config=mtp
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
@@ -113,24 +113,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/permissions/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
-# Ramdisk
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/ramdisk/fstab.qcom:root/fstab.qcom \
-    $(LOCAL_PATH)/ramdisk/init.class_main.sh:root/init.class_main.sh \
-    $(LOCAL_PATH)/ramdisk/init.mdm.sh:root/init.mdm.sh \
-    $(LOCAL_PATH)/ramdisk/init.qcom.bms.sh:root/init.qcom.bms.sh \
-    $(LOCAL_PATH)/ramdisk/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
-    $(LOCAL_PATH)/ramdisk/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
-    $(LOCAL_PATH)/ramdisk/init.qcom.factory.sh:root/init.qcom.factory.sh \
-    $(LOCAL_PATH)/ramdisk/init.qcom.rc:root/init.qcom.rc \
-    $(LOCAL_PATH)/ramdisk/init.qcom.sh:root/init.qcom.sh \
-    $(LOCAL_PATH)/ramdisk/init.qcom.syspart_fixup.sh:root/init.qcom.syspart_fixup.sh \
-    $(LOCAL_PATH)/ramdisk/init.qcom.usb.rc:root/init.qcom.usb.rc \
-    $(LOCAL_PATH)/ramdisk/init.qcom.usb.sh:root/init.qcom.usb.sh \
-    $(LOCAL_PATH)/ramdisk/init.target.rc:root/init.target.rc \
-    $(LOCAL_PATH)/ramdisk/ueventd.qcom.rc:root/ueventd.qcom.rc \
-    $(LOCAL_PATH)/ramdisk/ueventd.rc:root/ueventd.rc
-
 # Audio
 PRODUCT_PACKAGES += \
     audiod \
@@ -166,6 +148,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libboringssl-compat
 
+PRODUCT_PACKAGES += \
+    libstlport
+
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8916 \
@@ -189,6 +174,18 @@ PRODUCT_PACKAGES += \
     e2fsck \
     make_ext4fs \
     setup_fs
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/fstab.qcom:root/fstab.qcom \
+    $(LOCAL_PATH)/rootdir/init.qcom.power.rc:root/init.qcom.power.rc \
+    $(LOCAL_PATH)/rootdir/init.qcom.rc:root/init.qcom.rc \
+    $(LOCAL_PATH)/rootdir/init.qcom.usb.sh:root/init.qcom.usb.sh \
+    $(LOCAL_PATH)/rootdir/init.qcom.bms.sh:root/init.qcom.bms.sh \
+    $(LOCAL_PATH)/rootdir/init.qcom.usb.rc:root/init.qcom.usb.rc \
+    $(LOCAL_PATH)/rootdir/init.recovery.qcom.rc:root/init.recovery.qcom.rc \
+    $(LOCAL_PATH)/rootdir/init.target.rc:root/init.target.rc \
+    $(LOCAL_PATH)/rootdir/ueventd.qcom.rc:root/ueventd.qcom.rc \
+    $(LOCAL_PATH)/rootdir/ueventd.rc:root/ueventd.rc
 
 # Keylayout
 PRODUCT_COPY_FILES += \
@@ -222,7 +219,6 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw \
     qcmediaplayer \
-    qcmediaplayer \
     libqcmediaplayer \
     libextmedia_jni
 
@@ -234,8 +230,6 @@ PRODUCT_BOOT_JARS += qcom.fmradio
 # Power HAL
 PRODUCT_PACKAGES += \
     power.msm8916
-
-PRODUCT_PACKAGES +=  libstlport
 
 # Lights
 PRODUCT_PACKAGES += \
