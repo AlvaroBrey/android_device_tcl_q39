@@ -26,13 +26,48 @@
 #
 
 on boot
-    # change file owner for factory test
-    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/firmware_version
-    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/firmware_update
-    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/calibrate
+# LEWA BEGIN
+    #create /data/system/batteryd
+    mkdir /data/system 0755 system system
+    mkdir /data/system/batteryd
+    chown system system /data/system/batteryd
+# LEWA END
+
+    #Set SUID bit for usbhub
+    chmod 4755 /system/bin/usbhub
+    chmod 755 /system/bin/usbhub_init
 
     chown root system /sys/devices/soc.0/78b9000.i2c/i2c-5/5-005d/keypad_enable
     chmod 0660 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-005d/keypad_enable
 
     chown system system /sys/class/TP-UNLOCK/device/gesture
     chmod 0660 /sys/class/TP-UNLOCK/device/gesture
+
+    setprop persist.sys.ssr.enable_ramdumps 1
+
+    setprop persist.sys.ssr.restart_level modem
+
+    chmod 664 /dev/ramdump_*
+
+    chown root system /sys/class/sensors/akm09911-mag/enable
+    chown root system /sys/class/sensors/akm09911-mag/calibrate
+    chown root system /sys/class/sensors/akm09911-mag/poll_delay
+
+    #[BUGFIX] bug 956570,Enable the permission to set the CPU0 sampling min  freq from Power HAL.
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    #[BUGFIX] END
+
+    chown system system /sys/class/leds/singal-light/brightness
+    chown system system /sys/class/leds/singal-light/blink
+
+    chown system system /sys/gtp_test/rawdata
+    chmod 0660 /sys/gtp_test/rawdata
+
+    chmod 0660 /sys/class/input/input4/offset
+    chown input system /sys/class/input/input4/offset
+    chown system input /dev/input/event4
+
+on post-fs-data
+    # fixed permissions for qrngd
+    chmod 664 /dev/hw_random
