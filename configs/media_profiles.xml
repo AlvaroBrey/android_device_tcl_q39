@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2014, The Linux Foundation. All rights reserved
+<!-- Copyright (C) 2012-2015, The Linux Foundation. All rights reserved
      Not a contribution.
 
      Copyright (C) 2010 The Android Open Source Project
@@ -84,7 +84,7 @@
 <MediaSettings>
     <!-- Each camcorder profile defines a set of predefined configuration parameters -->
     <!-- Back Camera -->
-    <CamcorderProfiles cameraId="0" startOffsetMs="500">
+    <CamcorderProfiles cameraId="0" startOffsetMs="300">
 
     <EncoderProfile quality="low" fileFormat="3gp" duration="30">
       <Video codec="h264"
@@ -99,7 +99,7 @@
              channels="1" />
     </EncoderProfile>
 
-    <!--<EncoderProfile quality="high" fileFormat="mp4" duration="30">
+    <EncoderProfile quality="high" fileFormat="mp4" duration="30">
       <Video codec="h264"
              bitRate="20000000"
              width="1920"
@@ -107,10 +107,10 @@
              frameRate="30" />
 
       <Audio codec="aac"
-             bitRate="256000"
+             bitRate="156000"
              sampleRate="48000"
              channels="2" />
-    </EncoderProfile>-->
+    </EncoderProfile>
 
     <EncoderProfile quality="qvga" fileFormat="mp4" duration="60">
       <Video codec="h264"
@@ -164,8 +164,7 @@
              channels="2" />
     </EncoderProfile>
 
-
-    <!--<EncoderProfile quality="1080p" fileFormat="mp4" duration="30">
+    <EncoderProfile quality="1080p" fileFormat="mp4" duration="30">
       <Video codec="h264"
              bitRate="20000000"
              width="1920"
@@ -173,10 +172,10 @@
              frameRate="30" />
 
       <Audio codec="aac"
-             bitRate="256000"
+             bitRate="156000"
              sampleRate="48000"
              channels="2" />
-    </EncoderProfile>-->
+    </EncoderProfile>
 
     <EncoderProfile quality="qcif" fileFormat="3gp" duration="30">
       <Video codec="h264"
@@ -218,19 +217,19 @@
              channels="1" />
     </EncoderProfile>
 
-    <!--<EncoderProfile quality="timelapsehigh" fileFormat="mp4" duration="30">
+    <EncoderProfile quality="timelapsehigh" fileFormat="mp4" duration="30">
       <Video codec="h264"
              bitRate="20000000"
              width="1920"
              height="1080"
              frameRate="30" />
 
-     - audio setting is ignored 
+      <!-- audio setting is ignored -->
       <Audio codec="aac"
-             bitRate="256000"
+             bitRate="156000"
              sampleRate="48000"
              channels="2" />
-    </EncoderProfile>-->
+    </EncoderProfile>
 
     <EncoderProfile quality="timelapseqcif" fileFormat="mp4" duration="30">
       <Video codec="h264"
@@ -317,19 +316,19 @@
              channels="2" />
     </EncoderProfile>
 
-    <!-- <EncoderProfile quality="timelapse1080p" fileFormat="mp4" duration="30">
+    <EncoderProfile quality="timelapse1080p" fileFormat="mp4" duration="30">
       <Video codec="h264"
              bitRate="20000000"
              width="1920"
              height="1080"
              frameRate="30" />
 
-       
+      <!-- audio setting is ignored -->
       <Audio codec="aac"
-             bitRate="256000"
+             bitRate="156000"
              sampleRate="48000"
              channels="2" />
-    </EncoderProfile>-->
+    </EncoderProfile>
 
         <ImageEncoding quality="95" />
         <ImageEncoding quality="80" />
@@ -338,7 +337,7 @@
 
     </CamcorderProfiles>
     <!-- Front Camera -->
-    <CamcorderProfiles cameraId="1" startOffsetMs="500">
+    <CamcorderProfiles cameraId="1" startOffsetMs="300">
 
     <EncoderProfile quality="low" fileFormat="3gp" duration="30">
       <Video codec="h264"
@@ -355,9 +354,9 @@
 
     <EncoderProfile quality="high" fileFormat="mp4" duration="30">
       <Video codec="h264"
-             bitRate="14000000"
-             width="1280"
-             height="720"
+             bitRate="20000000"
+             width="1920"
+             height="1080"
              frameRate="30" />
 
       <Audio codec="aac"
@@ -418,6 +417,19 @@
              channels="2" />
     </EncoderProfile>
 
+    <EncoderProfile quality="1080p" fileFormat="mp4" duration="30">
+      <Video codec="h264"
+             bitRate="20000000"
+             width="1920"
+             height="1080"
+             frameRate="30" />
+
+      <Audio codec="aac"
+             bitRate="156000"
+             sampleRate="48000"
+             channels="2" />
+    </EncoderProfile>
+
     <EncoderProfile quality="qcif" fileFormat="3gp" duration="30">
       <Video codec="h264"
              bitRate="192000"
@@ -460,16 +472,16 @@
 
     <EncoderProfile quality="timelapsehigh" fileFormat="mp4" duration="30">
       <Video codec="h264"
-             bitRate="8000000"
-             width="1280"
-             height="720"
+             bitRate="20000000"
+             width="1920"
+             height="1080"
              frameRate="30" />
 
       <!-- audio setting is ignored -->
       <Audio codec="aac"
-             bitRate="96000"
+             bitRate="156000"
              sampleRate="48000"
-             channels="1" />
+             channels="2" />
     </EncoderProfile>
     <EncoderProfile quality="timelapseqcif" fileFormat="mp4" duration="30">
       <Video codec="h264"
@@ -555,6 +567,20 @@
                    channels="1" />
     </EncoderProfile>
 
+    <EncoderProfile quality="timelapse1080p" fileFormat="mp4" duration="30">
+      <Video codec="h264"
+             bitRate="20000000"
+             width="1920"
+             height="1080"
+             frameRate="30" />
+
+      <!-- audio setting is ignored -->
+      <Audio codec="aac"
+             bitRate="156000"
+             sampleRate="48000"
+             channels="2" />
+    </EncoderProfile>
+
         <ImageEncoding quality="95" />
         <ImageEncoding quality="80" />
         <ImageEncoding quality="70" />
@@ -618,6 +644,11 @@
         minBitRate="5525" maxBitRate="12200"
         minSampleRate="8000" maxSampleRate="8000"
         minChannels="1" maxChannels="1" />
+
+    <AudioEncoderCap name="lpcm" enabled="true"
+        minBitRate="768000" maxBitRate="4608000"
+        minSampleRate="48000" maxSampleRate="48000"
+        minChannels="1" maxChannels="6" />
 
     <!--
         FIXME:
