@@ -175,6 +175,13 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs
 
+# Sensors
+PRODUCT_PACKAGES += \
+    calmodule.cfg \
+    libcalmodule_akm.so \
+    libcalmodule_common \
+    sensors.msm8916
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/fstab.qcom:root/fstab.qcom \
     $(LOCAL_PATH)/rootdir/init.qcom.power.rc:root/init.qcom.power.rc \

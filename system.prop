@@ -2,12 +2,14 @@
 # system.prop for msm8916
 #
 
-
-# ActivityManager optimizations
+ ActivityManager optimizations
 ro.config.max_starting_bg=8
 ro.sys.fw.bservice_enable=true
 ro.sys.fw.bservice_limit=5
 ro.sys.fw.bservice_age=5000
+
+# Display
+ro.sf.lcd_density=480
 
 # Audio
 ro.qc.sdk.audio.fluencetype=fluence
@@ -52,9 +54,6 @@ mm.enable.smoothstreaming=true
 mm.disable.sec_smoothstreaming=true
 media.aac_51_output_enabled=true
 drm.service.enabled=1
-
-ro.sf.lcd_density=480
-qemu.hw.mainkeys=1
 
 # NITZ
 persist.rild.nitz_plmn=
