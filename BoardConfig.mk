@@ -107,17 +107,7 @@ COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_BSP
 ADD_RADIO_FILES := true
 TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
 
-CM_CLASS := true
-#MOKEE_CLASS := true
-
-# Hardware
-ifneq ($(MOKEE_CLASS),true)
-BOARD_HARDWARE_CLASS := device/tcl/q39/mkhw
-endif
-
-ifneq ($(CM_CLASS),true)
 BOARD_HARDWARE_CLASS := device/tcl/q39/cmhw
-endif
 
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true

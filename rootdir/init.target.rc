@@ -68,6 +68,23 @@ on boot
     chown input system /sys/class/input/input4/offset
     chown system input /dev/input/event4
 
+    # sensors
+    chown system system /sys/class/sensors/MPU6050-accel/enable
+    chmod 0660 /sys/class/sensors/MPU6050-accel/enable
+
+    chown system system /sys/class/sensors/akm09911-mag/enable
+    chmod 0660 /sys/class/sensors/akm09911-mag/enable
+
+    chown system system /sys/class/sensors/MPU6050-gyro/enable
+    chmod 0660 /sys/class/sensors/MPU6050-gyro/enable
+
+    chmod 0664 /sys/class/sensors/ap3426-light/enable
+    chown system system /sys/class/sensors/ap3426-light/enable
+
+    chmod 0664 /sys/class/sensors/ap3426-proximity/enable
+    chown system system /sys/class/sensors/ap3426-proximity/enable
+
+
 on post-fs-data
     # fixed permissions for qrngd
     chmod 664 /dev/hw_random
