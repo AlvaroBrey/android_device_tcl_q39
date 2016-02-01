@@ -316,4 +316,4 @@ $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalv
 
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
-$(call inherit-product, vendor/tcl/q39/q39-vendor.mk)
+$(call inherit-product, device/tcl/q39/vendor/q39-vendor.mk)
