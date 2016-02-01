@@ -1,4 +1,4 @@
-# Copyright (C) 2014 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, device/tcl/q39/full_q39.mk)
+# Inherit from the common Open Source product configuration
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
+# Inherit from the hardware-specific part of the product configuration
+$(call inherit-product, device/tcl/q39/device.mk)
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
-PRODUCT_BRAND := tcl
-PRODUCT_NAME := cm_q39
-BOARD_VENDOR := tcl
+
+# Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := q39
+PRODUCT_NAME := cm_q39
+PRODUCT_BRAND := TCL
+PRODUCT_MODEL := M3G
 PRODUCT_MANUFACTURER := TCL
 
+PRODUCT_GMS_CLIENTID_BASE := android-tcl
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    PRODUCT_NAME=q39
