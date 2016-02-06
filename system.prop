@@ -98,3 +98,6 @@ ro.pip.gated=0
 persist.sys.isUsbOtgEnabled=true
 ro.sys.partner=TCL
 ro.sys.channeltype=BRAND
+
+#camera
+persist.camera.cpp.duplication=false
