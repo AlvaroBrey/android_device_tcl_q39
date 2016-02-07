@@ -21,6 +21,7 @@ include $(CLEAR_VARS)
 #----------------------------------------------------------------------
 # Radio image
 #----------------------------------------------------------------------
+
 ifeq ($(ADD_RADIO_FILES), true)
 radio_dir := $(LOCAL_PATH)/radio
 RADIO_FILES := $(shell cd $(radio_dir) ; ls)
@@ -28,10 +29,6 @@ $(foreach f, $(RADIO_FILES), \
     $(call add-radio-file,radio/$(f)))
 
 INSTALLED_RADIOIMAGE_TARGET += $(TARGET_BOOTLOADER_EMMC_INTERNAL)
-$(call add-radio-file,images/NON-HLOS.bin)
-$(call add-radio-file,images/rpm.mbn)
-$(call add-radio-file,images/sbl1.mbn)
-$(call add-radio-file,images/tz.mbn)
 endif
 
 #Create symbolic links
