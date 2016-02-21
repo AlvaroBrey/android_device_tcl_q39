@@ -20,7 +20,7 @@
 # a new key layout file with the required keyboard configuration.
 #
 
-key 139   MENU VIRTUAL
+key 139   APP_SWITCH VIRTUAL
 key 158   BACK VIRTUAL
 key 172   HOME VIRTUAL
 key 191   POWER
