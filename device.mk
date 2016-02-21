@@ -165,6 +165,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
+#Camera
+PRODUCT_PACKAGES += \
+    camera.msm8916 \
+	libshim_camera \
+    Snap
+
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8916

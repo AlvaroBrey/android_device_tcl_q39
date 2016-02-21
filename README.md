@@ -1,7 +1,14 @@
 Device tree for TCL M3G
 
-Author:FlourMo
+Author: ontherunvaro
 
-This branch is for building CyanogenMod 13.0 (or Android Kitkat 5.0.2 AOSP based roms) ROMS.
+Original Author: FlourMo
+
+Fork of TCL-M3G-dev/android_device_tcl_q39
+
+This branch is for building CyanogenMod 13.0 ROMS.
 
 Current status : DOES NOT BUILD
+
+
+

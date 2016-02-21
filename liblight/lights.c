@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project.
- * Copyright (C) 2013-2015, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2008 The Android Open Source Project
+ * Copyright (C) 2014 The Linux Foundation. All rights reserved.
+ * Copyright (C) 2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +16,13 @@
  * limitations under the License.
  */
 
-
-// #define LOG_NDEBUG 0
+#define LOG_TAG "lights"
 
 #include <cutils/log.h>
 
 #include <stdint.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -33,15 +33,22 @@
 
 #include <hardware/lights.h>
 
+#ifndef min
+#define min(a,b) ((a)<(b)?(a):(b))
+#endif
+#ifndef max
+#define max(a,b) ((a)<(b)?(b):(a))
+#endif
+
 /******************************************************************************/
 
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
+static struct light_state_t g_attention;
 static struct light_state_t g_notification;
 static struct light_state_t g_battery;
-static int g_attention = 0;
 
-char const*const RED_LED_FILE
+char const*const WHITE_LED_FILE
         = "/sys/class/leds/singal-light/brightness";
 
 char const*const LCD_FILE
@@ -50,8 +57,9 @@ char const*const LCD_FILE
 char const*const BUTTON_FILE
         = "/sys/class/leds/button-backlight/brightness";
 
-char const*const RED_BLINK_FILE
+char const*const WHITE_BLINK_FILE
         = "/sys/class/leds/singal-light/blink";
+
 
 /**
  * device methods
@@ -86,6 +94,28 @@ write_int(char const* path, int value)
 }
 
 static int
+write_str(char const* path, char* value)
+{
+    int fd;
+    static int already_warned = 0;
+
+    fd = open(path, O_RDWR);
+    if (fd >= 0) {
+        char buffer[1024];
+        int bytes = snprintf(buffer, sizeof(buffer), "%s\n", value);
+        ssize_t amt = write(fd, buffer, (size_t)bytes);
+        close(fd);
+        return amt == -1 ? -errno : 0;
+    } else {
+        if (already_warned == 0) {
+            ALOGE("write_int failed to open %s\n", path);
+            already_warned = 1;
+        }
+        return -errno;
+    }
+}
+
+static int
 is_lit(struct light_state_t const* state)
 {
     return state->color & 0x00ffffff;
@@ -105,6 +135,9 @@ set_light_backlight(struct light_device_t* dev,
 {
     int err = 0;
     int brightness = rgb_to_brightness(state);
+    if(!dev) {
+        return -1;
+    }
     pthread_mutex_lock(&g_lock);
     err = write_int(LCD_FILE, brightness);
     pthread_mutex_unlock(&g_lock);
@@ -115,11 +148,13 @@ static int
 set_speaker_light_locked(struct light_device_t* dev,
         struct light_state_t const* state)
 {
-    int len;
-    int alpha;
-    int blink;
+    int white, blink;
     int onMS, offMS;
     unsigned int colorRGB;
+
+    if(!dev) {
+        return -1;
+    }
 
     switch (state->flashMode) {
         case LIGHT_FLASH_TIMED:
@@ -135,30 +170,48 @@ set_speaker_light_locked(struct light_device_t* dev,
 
     colorRGB = state->color;
 
-#if 0
-    ALOGD("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d\n",
-            state->flashMode, colorRGB, onMS, offMS);
-#endif
 
-    if (onMS > 0 && offMS > 0) {
-        blink = 1;
-        write_int(RED_BLINK_FILE, blink);
-    } else {
-        blink = 0;
-        write_int(RED_BLINK_FILE, blink);
-    } 
-//        write_int(RED_LED_FILE, 0);
+    //disable all blinking to start
+    write_int(WHITE_BLINK_FILE,0);
+
+
+    white = (colorRGB >> 8) & 0xFF;
+	blink = onMS > 0 && offMS > 0 ;
+
+    if(blink){
+		write_int(WHITE_BLINK_FILE,1);
+    }else{
+        write_int(WHITE_LED_FILE,white);
+    }
+
+  	
+    ALOGV("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d, blink=%d, white=%d\n",
+            state->flashMode, colorRGB, onMS, offMS, blink, white);
+
     return 0;
 }
 
 static void
-handle_speaker_battery_locked(struct light_device_t* dev)
+handle_speaker_light_locked(struct light_device_t* dev)
 {
-    if (is_lit(&g_battery)) {
-        set_speaker_light_locked(dev, &g_battery);
-    } else {
+    if (is_lit(&g_attention)) {
+        set_speaker_light_locked(dev, &g_attention);
+    } else if (is_lit(&g_notification)) {
         set_speaker_light_locked(dev, &g_notification);
+    } else {
+        set_speaker_light_locked(dev, &g_battery);
     }
+}
+
+static int
+set_light_battery(struct light_device_t* dev,
+        struct light_state_t const* state)
+{
+    pthread_mutex_lock(&g_lock);
+    g_battery = *state;
+    handle_speaker_light_locked(dev);
+    pthread_mutex_unlock(&g_lock);
+    return 0;
 }
 
 static int
@@ -167,7 +220,7 @@ set_light_notifications(struct light_device_t* dev,
 {
     pthread_mutex_lock(&g_lock);
     g_notification = *state;
-    handle_speaker_battery_locked(dev);
+    handle_speaker_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
     return 0;
 }
@@ -177,12 +230,8 @@ set_light_attention(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     pthread_mutex_lock(&g_lock);
-    if (state->flashMode == LIGHT_FLASH_HARDWARE) {
-        g_attention = state->flashOnMS;
-    } else if (state->flashMode == LIGHT_FLASH_NONE) {
-        g_attention = 0;
-    }
-    handle_speaker_battery_locked(dev);
+    g_attention = *state;
+    handle_speaker_light_locked(dev);
     pthread_mutex_unlock(&g_lock);
     return 0;
 }
@@ -224,12 +273,14 @@ static int open_lights(const struct hw_module_t* module, char const* name,
 
     if (0 == strcmp(LIGHT_ID_BACKLIGHT, name))
         set_light = set_light_backlight;
+    else if (0 == strcmp(LIGHT_ID_BATTERY, name))
+        set_light = set_light_battery;
     else if (0 == strcmp(LIGHT_ID_NOTIFICATIONS, name))
         set_light = set_light_notifications;
-    else if (0 == strcmp(LIGHT_ID_BUTTONS, name))
-        set_light = set_light_buttons;
     else if (0 == strcmp(LIGHT_ID_ATTENTION, name))
         set_light = set_light_attention;
+	else if (0 == strcmp(LIGHT_ID_BUTTONS, name))
+        set_light = set_light_buttons;	
     else
         return -EINVAL;
 
@@ -264,7 +315,7 @@ struct hw_module_t HAL_MODULE_INFO_SYM = {
     .version_major = 1,
     .version_minor = 0,
     .id = LIGHTS_HARDWARE_MODULE_ID,
-    .name = "lights Module",
-    .author = "Google, Inc.",
+    .name = "q39 Lights Module",
+    .author = "The CyanogenMod Project",
     .methods = &lights_module_methods,
 };
