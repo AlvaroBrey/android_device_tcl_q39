@@ -292,32 +292,29 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
-    hostapd_default.conf \
-    p2p_supplicant_overlay.conf \
-    wpa_supplicant_overlay.conf \
-    WCNSS_cfg.dat \
-    WCNSS_qcom_cfg.ini \
-    WCNSS_qcom_wlan_nv.bin
-
-PRODUCT_PACKAGES += \
+    libwcnss_qmi \
+    libqsap_sdk \
+    libQWiFiSoftApCfg \
+    wcnss_service \
+    libwpa_client \
     dhcpcd.conf \
     hostapd \
+    libxml2 \
     wpa_supplicant \
     wpa_supplicant.conf
 
-PRODUCT_PACKAGES += \
-    libcurl \
-    libqsap_sdk \
-    libQWiFiSoftApCfg \
-    libwcnss_qmi \
-    wcnss_service
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/hostapd.accept:system/etc/hostapd/hostapd.accept \
+    $(LOCAL_PATH)/configs/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
+    $(LOCAL_PATH)/configs/hostapd.deny:system/etc/hostapd/hostapd.deny
+    
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    $(LOCAL_PATH)/configs/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0 \
-    persist.debug.wfd.enable=1 \
-    persist.sys.wfd.virtual=0
-
-
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat
     
 $(call inherit-product, build/target/product/full.mk)
 
