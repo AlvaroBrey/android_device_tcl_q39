@@ -59,8 +59,6 @@ PRODUCT_BOOT_JARS += qcmediaplayer
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/apns-conf.xml:system/etc/apns-conf.xml \
     $(LOCAL_PATH)/etc/clatd.conf:system/etc/clatd.conf \
-    $(LOCAL_PATH)/etc/flp.conf:system/etc/flp.conf \
-    $(LOCAL_PATH)/etc/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/etc/hsic.control.bt.sh:system/etc/hsic.control.bt.sh \
     $(LOCAL_PATH)/etc/init.ath3k.bt.sh:system/etc/init.ath3k.bt.sh \
     $(LOCAL_PATH)/etc/init.crda.sh:system/etc/init.crda.sh \
@@ -77,10 +75,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh \
     $(LOCAL_PATH)/etc/init.qcom.zram.sh:system/etc/init.qcom.zram.sh \
     $(LOCAL_PATH)/etc/init.qcom8x26.btcta.sh:system/etc/init.qcom8x26.btcta.sh \
-    $(LOCAL_PATH)/etc/izat.conf:system/etc/izat.conf \
     $(LOCAL_PATH)/etc/lowi.conf:system/etc/lowi.conf \
-    $(LOCAL_PATH)/etc/quipc.conf:system/etc/quipc.conf \
-    $(LOCAL_PATH)/etc/sap.conf:system/etc/sap.conf \
     $(LOCAL_PATH)/etc/sec_config:system/etc/sec_config
 
 # firmware
@@ -195,6 +190,13 @@ PRODUCT_PACKAGES += \
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8916
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf \
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
+    $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
+    $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
 
 # Keylayout
 PRODUCT_COPY_FILES += \
