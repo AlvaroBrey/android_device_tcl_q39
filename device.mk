@@ -61,10 +61,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/clatd.conf:system/etc/clatd.conf \
     $(LOCAL_PATH)/etc/hsic.control.bt.sh:system/etc/hsic.control.bt.sh \
     $(LOCAL_PATH)/etc/init.ath3k.bt.sh:system/etc/init.ath3k.bt.sh \
-    $(LOCAL_PATH)/etc/init.crda.sh:system/etc/init.crda.sh \
     $(LOCAL_PATH)/etc/init.qcom.audio.sh:system/etc/init.qcom.audio.sh \
-    $(LOCAL_PATH)/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
-    $(LOCAL_PATH)/etc/init.qcom.coex.sh:system/etc/init.qcom.coex.sh \
     $(LOCAL_PATH)/etc/init.qcom.debug.sh:system/etc/init.qcom.debug.sh \
     $(LOCAL_PATH)/etc/init.qcom.efs.sync.sh:system/etc/init.qcom.efs.sync.sh \
     $(LOCAL_PATH)/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
@@ -125,6 +122,22 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/ueventd.qcom.rc:root/ueventd.qcom.rc \
     $(LOCAL_PATH)/ramdisk/ueventd.rc:root/ueventd.rc
 
+PRODUCT_PACKAGES += \
+    init.crda.sh \
+    init.qcom.bt.sh \
+    init.qcom.coex.sh
+
+PRODUCT_PACKAGES += \
+    init.qcom.rc \
+    init.qcom.power.rc \
+    init.qcom.usb.rc \
+    init.recovery.qcom.rc \
+    ueventd.qcom.rc
+
+PRODUCT_PACKAGES += \
+    fstab.qcom \
+    init.target.rc
+    
 # Audio
 PRODUCT_PACKAGES += \
     audiod \
