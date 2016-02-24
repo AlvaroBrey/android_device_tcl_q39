@@ -75,34 +75,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/lowi.conf:system/etc/lowi.conf \
     $(LOCAL_PATH)/etc/sec_config:system/etc/sec_config
 
-# firmware
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/firmware/a225_pfp.fw:system/etc/firmware/a225_pfp.fw \
-    $(LOCAL_PATH)/etc/firmware/a225_pm4.fw:system/etc/firmware/a225_pm4.fw \
-    $(LOCAL_PATH)/etc/firmware/a225p5_pm4.fw:system/etc/firmware/a225p5_pm4.fw \
-    $(LOCAL_PATH)/etc/firmware/a300_pfp.fw:system/etc/firmware/a300_pfp.fw \
-    $(LOCAL_PATH)/etc/firmware/a300_pm4.fw:system/etc/firmware/a300_pm4.fw \
-    $(LOCAL_PATH)/etc/firmware/a330_pfp.fw:system/etc/firmware/a330_pfp.fw \
-    $(LOCAL_PATH)/etc/firmware/a330_pm4.fw:system/etc/firmware/a330_pm4.fw \
-    $(LOCAL_PATH)/etc/firmware/a420_pfp.fw:system/etc/firmware/a420_pfp.fw \
-    $(LOCAL_PATH)/etc/firmware/a420_pm4.fw:system/etc/firmware/a420_pm4.fw \
-    $(LOCAL_PATH)/etc/firmware/cpp_firmware_v1_1_1.fw:system/etc/firmware/cpp_firmware_v1_1_1.fw \
-    $(LOCAL_PATH)/etc/firmware/cpp_firmware_v1_1_6.fw:system/etc/firmware/cpp_firmware_v1_1_6.fw \
-    $(LOCAL_PATH)/etc/firmware/cpp_firmware_v1_2_0.fw:system/etc/firmware/cpp_firmware_v1_2_0.fw \
-    $(LOCAL_PATH)/etc/firmware/cpp_firmware_v1_4_0.fw:system/etc/firmware/cpp_firmware_v1_4_0.fw \
-    $(LOCAL_PATH)/etc/firmware/ice40.bin:system/etc/firmware/ice40.bin \
-    $(LOCAL_PATH)/etc/firmware/leia_pfp_470.fw:system/etc/firmware/leia_pfp_470.fw \
-    $(LOCAL_PATH)/etc/firmware/leia_pm4_470.fw:system/etc/firmware/leia_pm4_470.fw \
-    $(LOCAL_PATH)/etc/firmware/venus.b00:system/etc/firmware/venus.b00 \
-    $(LOCAL_PATH)/etc/firmware/venus.b01:system/etc/firmware/venus.b01 \
-    $(LOCAL_PATH)/etc/firmware/venus.b02:system/etc/firmware/venus.b02 \
-    $(LOCAL_PATH)/etc/firmware/venus.b03:system/etc/firmware/venus.b03 \
-    $(LOCAL_PATH)/etc/firmware/venus.b04:system/etc/firmware/venus.b04 \
-    $(LOCAL_PATH)/etc/firmware/venus.mbn:system/etc/firmware/venus.mbn \
-    $(LOCAL_PATH)/etc/firmware/venus.mdt:system/etc/firmware/venus.mdt
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/permissions/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
 # Ramdisk
 
