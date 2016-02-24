@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DEVICE=M3G
-VENDOR=TCL
+DEVICE=q39
+VENDOR=tcl
 
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
@@ -158,7 +158,7 @@ EOF
 
 LOCAL_PATH := \$(call my-dir)
 
-ifeq (\$(TARGET_DEVICE),tomato)
+ifeq (\$(TARGET_DEVICE),$DEVICE)
 ifeq (\$(QCPATH),)
 
 include \$(CLEAR_VARS)
