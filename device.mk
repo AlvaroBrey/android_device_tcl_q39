@@ -57,26 +57,21 @@ TARGET_SCREEN_WIDTH := 1080
 
 PRODUCT_BOOT_JARS += qcmediaplayer
 
-# etc
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/apns-conf.xml:system/etc/apns-conf.xml \
-    $(LOCAL_PATH)/etc/clatd.conf:system/etc/clatd.conf \
-    $(LOCAL_PATH)/etc/hsic.control.bt.sh:system/etc/hsic.control.bt.sh \
-    $(LOCAL_PATH)/etc/init.ath3k.bt.sh:system/etc/init.ath3k.bt.sh \
-    $(LOCAL_PATH)/etc/init.qcom.audio.sh:system/etc/init.qcom.audio.sh \
-    $(LOCAL_PATH)/etc/init.qcom.debug.sh:system/etc/init.qcom.debug.sh \
-    $(LOCAL_PATH)/etc/init.qcom.efs.sync.sh:system/etc/init.qcom.efs.sync.sh \
-    $(LOCAL_PATH)/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
-    $(LOCAL_PATH)/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh \
-    $(LOCAL_PATH)/etc/init.qcom.sdio.sh:system/etc/init.qcom.sdio.sh \
-    $(LOCAL_PATH)/etc/init.qcom.power.sh:system/etc/init.qcom.power.sh \
-    $(LOCAL_PATH)/etc/init.qcom.uicc.sh:system/etc/init.qcom.uicc.sh \
-    $(LOCAL_PATH)/etc/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh \
-    $(LOCAL_PATH)/etc/init.qcom.zram.sh:system/etc/init.qcom.zram.sh \
-    $(LOCAL_PATH)/etc/init.qcom8x26.btcta.sh:system/etc/init.qcom8x26.btcta.sh \
-    $(LOCAL_PATH)/etc/lowi.conf:system/etc/lowi.conf \
-    $(LOCAL_PATH)/etc/sec_config:system/etc/sec_config
-
+# etc (deprecated)
+PRODUCT_PACKAGES += \
+    hsic.control.bt.sh \
+    init.ath3k.bt.sh \
+    init.qcom.audio.sh \
+    init.qcom.debug.sh \
+    init.qcom.efs.sync.sh \
+    init.qcom.fm.sh \
+    init.qcom.post_boot.sh \
+    init.qcom.sdio.sh \
+    init.qcom.power.sh \
+    init.qcom.uicc.sh \
+    init.qcom.wifi.sh \
+    init.qcom.zram.sh \
+    init.qcom8x26.btcta.sh
 
 # Ramdisk
 
@@ -135,6 +130,10 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
+# APNS
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/apns-conf.xml:system/etc/apns-conf.xml
+
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8916 \
@@ -144,6 +143,9 @@ PRODUCT_PACKAGES += \
     libion \
     libtinyxml \
     memtrack.msm8916
+
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/egl.cfg:system/etc/egl.cfg
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -158,6 +160,10 @@ PRODUCT_PACKAGES += \
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8916
+
+# LOWI
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/lowi.conf:system/etc/lowi.conf
 
 # Filesystem
 PRODUCT_PACKAGES += \
@@ -175,6 +181,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
     $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
     $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
+
+# IRSC
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
 
 # Keylayout
 PRODUCT_COPY_FILES += \
