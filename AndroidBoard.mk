@@ -30,14 +30,3 @@ $(foreach f, $(RADIO_FILES), \
 
 INSTALLED_RADIOIMAGE_TARGET += $(TARGET_BOOTLOADER_EMMC_INTERNAL)
 endif
-
-#Create symbolic links
-$(shell mkdir -p $(TARGET_OUT)/vendor/lib; \
-        rm -f $(TARGET_OUT)/vendor/lib/libEGL_adreno.so; \
-        ln -sf /system/vendor/lib/egl/libEGL_adreno.so \
-        $(TARGET_OUT)/vendor/lib/libEGL_adreno.so)
-
-$(shell mkdir -p $(TARGET_OUT)/vendor/lib64; \
-        rm -f $(TARGET_OUT)/vendor/lib64/libEGL_adreno.so; \
-        ln -sf /system/vendor/lib64/egl/libEGL_adreno.so \
-        $(TARGET_OUT)/vendor/lib64/libEGL_adreno.so)
