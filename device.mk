@@ -254,6 +254,10 @@ PRODUCT_PROPERTY_OVERRIDES +=
 endif
 endif
 
+# Thermal
+PRODUCT_COPY_FILES +=
+	configs/thermal_engine.conf:system/etc/thermal_engine.conf
+
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
