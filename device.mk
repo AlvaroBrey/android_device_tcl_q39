@@ -255,8 +255,8 @@ endif
 endif
 
 # Thermal
-PRODUCT_COPY_FILES +=
-	configs/thermal_engine.conf:system/etc/thermal_engine.conf
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
 
 # USB
 PRODUCT_PACKAGES += \

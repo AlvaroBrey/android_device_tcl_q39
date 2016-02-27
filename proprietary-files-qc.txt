@@ -85,7 +85,6 @@ etc/sound_trigger_mixer_paths_wcd9306.xml
 etc/sound_trigger_mixer_paths.xml
 etc/sound_trigger_platform_info.xml
 etc/spn-conf.xml
-etc/thermal-engine.conf
 etc/wfdconfigsink.xml
 etc/wfdconfig.xml
 etc/xtra_root_cert.pem
