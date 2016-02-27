@@ -1,3 +1,5 @@
+#OTA
+cm.updater.uri=http://ota.ontherunvaro.com/api
 
 # Audio
 audio.dolby.ds2.enabled=true
