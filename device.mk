@@ -188,10 +188,8 @@ PRODUCT_COPY_FILES += \
 
 # Keylayout
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/keylayout/Goodix-TS.kl:system/usr/keylayout/Goodix-TS.kl \
-    $(LOCAL_PATH)/keylayout/qwerty.idc:system/usr/idc/qwerty.idc \
-    $(LOCAL_PATH)/keylayout/qwerty2.idc:system/usr/idc/qwerty2.idc \
-
+    $(LOCAL_PATH)/keylayout/Goodix-TS.kl:system/usr/keylayout/Goodix-TS.kl
+    
 # Keystore
 PRODUCT_PACKAGES += \
     keystore.msm8916
