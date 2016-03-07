@@ -49,6 +49,7 @@ done
 
 ifeq (\$(QCPATH),)
 PRODUCT_COPY_FILES += \\
+
 EOF
 
 LINEEND=" \\"
