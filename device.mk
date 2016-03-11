@@ -17,6 +17,8 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 
+$(call inherit-product-if-exists, vendor/tcl/q39/q39-vendor.mk)
+
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
@@ -56,63 +58,47 @@ TARGET_SCREEN_WIDTH := 1080
 
 PRODUCT_BOOT_JARS += qcmediaplayer
 
-# etc
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/apns-conf.xml:system/etc/apns-conf.xml \
-    $(LOCAL_PATH)/etc/clatd.conf:system/etc/clatd.conf \
-    $(LOCAL_PATH)/etc/flp.conf:system/etc/flp.conf \
-    $(LOCAL_PATH)/etc/gps.conf:system/etc/gps.conf \
-    $(LOCAL_PATH)/etc/hsic.control.bt.sh:system/etc/hsic.control.bt.sh \
-    $(LOCAL_PATH)/etc/init.ath3k.bt.sh:system/etc/init.ath3k.bt.sh \
-    $(LOCAL_PATH)/etc/init.crda.sh:system/etc/init.crda.sh \
-    $(LOCAL_PATH)/etc/init.qcom.audio.sh:system/etc/init.qcom.audio.sh \
-    $(LOCAL_PATH)/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
-    $(LOCAL_PATH)/etc/init.qcom.coex.sh:system/etc/init.qcom.coex.sh \
-    $(LOCAL_PATH)/etc/init.qcom.debug.sh:system/etc/init.qcom.debug.sh \
-    $(LOCAL_PATH)/etc/init.qcom.efs.sync.sh:system/etc/init.qcom.efs.sync.sh \
-    $(LOCAL_PATH)/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
-    $(LOCAL_PATH)/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh \
-    $(LOCAL_PATH)/etc/init.qcom.sdio.sh:system/etc/init.qcom.sdio.sh \
-    $(LOCAL_PATH)/etc/init.qcom.power.sh:system/etc/init.qcom.power.sh \
-    $(LOCAL_PATH)/etc/init.qcom.uicc.sh:system/etc/init.qcom.uicc.sh \
-    $(LOCAL_PATH)/etc/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh \
-    $(LOCAL_PATH)/etc/init.qcom.zram.sh:system/etc/init.qcom.zram.sh \
-    $(LOCAL_PATH)/etc/init.qcom8x26.btcta.sh:system/etc/init.qcom8x26.btcta.sh \
-    $(LOCAL_PATH)/etc/izat.conf:system/etc/izat.conf \
-    $(LOCAL_PATH)/etc/lowi.conf:system/etc/lowi.conf \
-    $(LOCAL_PATH)/etc/quipc.conf:system/etc/quipc.conf \
-    $(LOCAL_PATH)/etc/sap.conf:system/etc/sap.conf \
-    $(LOCAL_PATH)/etc/sec_config:system/etc/sec_config
+# etc (deprecated)
+PRODUCT_PACKAGES += \
+    hsic.control.bt.sh \
+    init.ath3k.bt.sh \
+    init.qcom.audio.sh \
+    init.qcom.debug.sh \
+    init.qcom.efs.sync.sh \
+    init.qcom.fm.sh \
+    init.qcom.post_boot.sh \
+    init.qcom.sdio.sh \
+    init.qcom.power.sh \
+    init.qcom.uicc.sh \
+    init.qcom.wifi.sh \
+    init.qcom.zram.sh \
+    init.qcom8x26.btcta.sh
 
-# firmware
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/firmware/a225_pfp.fw:system/etc/firmware/a225_pfp.fw \
-    $(LOCAL_PATH)/etc/firmware/a225_pm4.fw:system/etc/firmware/a225_pm4.fw \
-    $(LOCAL_PATH)/etc/firmware/a225p5_pm4.fw:system/etc/firmware/a225p5_pm4.fw \
-    $(LOCAL_PATH)/etc/firmware/a300_pfp.fw:system/etc/firmware/a300_pfp.fw \
-    $(LOCAL_PATH)/etc/firmware/a300_pm4.fw:system/etc/firmware/a300_pm4.fw \
-    $(LOCAL_PATH)/etc/firmware/a330_pfp.fw:system/etc/firmware/a330_pfp.fw \
-    $(LOCAL_PATH)/etc/firmware/a330_pm4.fw:system/etc/firmware/a330_pm4.fw \
-    $(LOCAL_PATH)/etc/firmware/a420_pfp.fw:system/etc/firmware/a420_pfp.fw \
-    $(LOCAL_PATH)/etc/firmware/a420_pm4.fw:system/etc/firmware/a420_pm4.fw \
-    $(LOCAL_PATH)/etc/firmware/cpp_firmware_v1_1_1.fw:system/etc/firmware/cpp_firmware_v1_1_1.fw \
-    $(LOCAL_PATH)/etc/firmware/cpp_firmware_v1_1_6.fw:system/etc/firmware/cpp_firmware_v1_1_6.fw \
-    $(LOCAL_PATH)/etc/firmware/cpp_firmware_v1_2_0.fw:system/etc/firmware/cpp_firmware_v1_2_0.fw \
-    $(LOCAL_PATH)/etc/firmware/cpp_firmware_v1_4_0.fw:system/etc/firmware/cpp_firmware_v1_4_0.fw \
-    $(LOCAL_PATH)/etc/firmware/ice40.bin:system/etc/firmware/ice40.bin \
-    $(LOCAL_PATH)/etc/firmware/leia_pfp_470.fw:system/etc/firmware/leia_pfp_470.fw \
-    $(LOCAL_PATH)/etc/firmware/leia_pm4_470.fw:system/etc/firmware/leia_pm4_470.fw \
-    $(LOCAL_PATH)/etc/firmware/venus.b00:system/etc/firmware/venus.b00 \
-    $(LOCAL_PATH)/etc/firmware/venus.b01:system/etc/firmware/venus.b01 \
-    $(LOCAL_PATH)/etc/firmware/venus.b02:system/etc/firmware/venus.b02 \
-    $(LOCAL_PATH)/etc/firmware/venus.b03:system/etc/firmware/venus.b03 \
-    $(LOCAL_PATH)/etc/firmware/venus.b04:system/etc/firmware/venus.b04 \
-    $(LOCAL_PATH)/etc/firmware/venus.mbn:system/etc/firmware/venus.mbn \
-    $(LOCAL_PATH)/etc/firmware/venus.mdt:system/etc/firmware/venus.mdt
+# Ramdisk
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/permissions/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
+PRODUCT_PACKAGES += \
+    init.crda.sh \
+    init.qcom.bt.sh \
+    init.qcom.coex.sh \
+    init.class_main.sh \
+    init.mdm.sh \
+    init.qcom.bms.sh \
+    init.qcom.class_core.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.factory.sh \
+    init.qcom.sh \
+    init.qcom.syspart_fixup.sh \
+    init.qcom.usb.sh 
 
+PRODUCT_PACKAGES += \
+    init.qcom.rc \
+    init.qcom.power.rc \
+    init.qcom.usb.rc \
+    init.recovery.qcom.rc \
+    ueventd.qcom.rc \
+    fstab.qcom \
+    init.target.rc
+    
 # Audio
 PRODUCT_PACKAGES += \
     audiod \
@@ -128,16 +114,16 @@ PRODUCT_PACKAGES += \
     
 # Audio configuration
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/acdbdata/MTP/MTP_Bluetooth_cal.acdb:system/etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb \
-    $(LOCAL_PATH)/configs/acdbdata/MTP/MTP_General_cal.acdb:system/etc/acdbdata/MTP/MTP_General_cal.acdb \
-    $(LOCAL_PATH)/configs/acdbdata/MTP/MTP_Global_cal.acdb:system/etc/acdbdata/MTP/MTP_Global_cal.acdb \
-    $(LOCAL_PATH)/configs/acdbdata/MTP/MTP_Handset_cal.acdb:system/etc/acdbdata/MTP/MTP_Handset_cal.acdb \
-    $(LOCAL_PATH)/configs/acdbdata/MTP/MTP_Hdmi_cal.acdb:system/etc/acdbdata/MTP/MTP_Hdmi_cal.acdb \
-    $(LOCAL_PATH)/configs/acdbdata/MTP/MTP_Headset_cal.acdb:system/etc/acdbdata/MTP/MTP_Headset_cal.acdb \
-    $(LOCAL_PATH)/configs/acdbdata/MTP/MTP_Speaker_cal.acdb:system/etc/acdbdata/MTP/MTP_Speaker_cal.acdb \
-    $(LOCAL_PATH)/configs/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-    $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/configs/mixer_paths_mtp.xml:system/etc/mixer_paths_mtp.xml
+    $(LOCAL_PATH)/audio/acdb/MTP/MTP_Bluetooth_cal.acdb:system/etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb \
+    $(LOCAL_PATH)/audio/acdb/MTP/MTP_General_cal.acdb:system/etc/acdbdata/MTP/MTP_General_cal.acdb \
+    $(LOCAL_PATH)/audio/acdb/MTP/MTP_Global_cal.acdb:system/etc/acdbdata/MTP/MTP_Global_cal.acdb \
+    $(LOCAL_PATH)/audio/acdb/MTP/MTP_Handset_cal.acdb:system/etc/acdbdata/MTP/MTP_Handset_cal.acdb \
+    $(LOCAL_PATH)/audio/acdb/MTP/MTP_Hdmi_cal.acdb:system/etc/acdbdata/MTP/MTP_Hdmi_cal.acdb \
+    $(LOCAL_PATH)/audio/acdb/MTP/MTP_Headset_cal.acdb:system/etc/acdbdata/MTP/MTP_Headset_cal.acdb \
+    $(LOCAL_PATH)/audio/acdb/MTP/MTP_Speaker_cal.acdb:system/etc/acdbdata/MTP/MTP_Speaker_cal.acdb \
+    $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/audio/mixer_paths_mtp.xml:system/etc/mixer_paths_mtp.xml
 
 # ANT+
 PRODUCT_PACKAGES += \
@@ -145,11 +131,16 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
+
 PRODUCT_PACKAGES += \
     libboringssl-compat
 
 PRODUCT_PACKAGES += \
     libstlport
+
+# APNS
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/apns-conf.xml:system/etc/apns-conf.xml
 
 # Display
 PRODUCT_PACKAGES += \
@@ -160,6 +151,9 @@ PRODUCT_PACKAGES += \
     libion \
     libtinyxml \
     memtrack.msm8916
+
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/egl.cfg:system/etc/egl.cfg
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -174,6 +168,10 @@ PRODUCT_PACKAGES += \
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8916
+
+# LOWI
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/lowi.conf:system/etc/lowi.conf
 
 # Filesystem
 PRODUCT_PACKAGES += \
@@ -200,12 +198,22 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/ueventd.qcom.rc:root/ueventd.qcom.rc \
     $(LOCAL_PATH)/rootdir/ueventd.rc:root/ueventd.rc
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf \
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
+    $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
+    $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
+
+# IRSC
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
+
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/Goodix-TS.kl:system/usr/keylayout/Goodix-TS.kl \
-    $(LOCAL_PATH)/keylayout/qwerty.idc:system/usr/idc/qwerty.idc \
-    $(LOCAL_PATH)/keylayout/qwerty2.idc:system/usr/idc/qwerty2.idc \
-
+    $(LOCAL_PATH)/keylayout/msm8939-snd-card-skuk_Button_Jack.kl:system/usr/keylayout/msm8939-snd-card-skuk_Button_Jack.kl
+    
 # Keystore
 PRODUCT_PACKAGES += \
     keystore.msm8916
@@ -265,6 +273,10 @@ PRODUCT_PROPERTY_OVERRIDES +=
 endif
 endif
 
+# Thermal
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
+
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
@@ -303,26 +315,24 @@ PRODUCT_PACKAGES += \
     dhcpcd.conf \
     hostapd \
     libxml2 \
-    wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/hostapd.accept:system/etc/hostapd/hostapd.accept \
-    $(LOCAL_PATH)/configs/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
-    $(LOCAL_PATH)/configs/hostapd.deny:system/etc/hostapd/hostapd.deny
-    
-PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/hostapd.conf:system/etc/hostapd/hostapd_default.conf \
+    $(LOCAL_PATH)/configs/hostapd.deny:system/etc/hostapd/hostapd.deny \
+    $(LOCAL_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     $(LOCAL_PATH)/configs/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-    $(LOCAL_PATH)/configs/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
+    $(LOCAL_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf 
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat
-    
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
+    $(LOCAL_PATH)/wifi/WCNSS_wlan_dictionary.dat:system/etc/firmware/wlan/prima/WCNSS_wlan_dictionary.dat
+
 $(call inherit-product, build/target/product/full.mk)
 
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
 
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
-
-$(call inherit-product, device/tcl/q39/vendor/q39-vendor.mk)

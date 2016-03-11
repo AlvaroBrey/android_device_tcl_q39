@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #set -e
-export DEVICE=Q39
-export VENDOR=TCL
+export DEVICE=q39
+export VENDOR=tcl
 
 if [ $# -eq 0 ]; then
   SRC=adb
@@ -55,7 +55,7 @@ function extract() {
 BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
 rm -rf $BASE/*
 
-extract ../../$VENDOR/$DEVICE/proprietary-files-qc.txt $BASE
 extract ../../$VENDOR/$DEVICE/proprietary-files.txt $BASE
+extract ../../$VENDOR/$DEVICE/proprietary-files-qc.txt $BASE
 
 ./setup-makefiles.sh

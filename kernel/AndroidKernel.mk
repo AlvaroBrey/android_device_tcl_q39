@@ -3,7 +3,7 @@ PERL		= perl
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 
-LOCAL_PRIVATE_PATH := device/tcl/q39/kernel
+LOCAL_PRIVATE_PATH := $(call my-dir)
 
 TARGET_KERNEL_ARCH := $(strip $(TARGET_KERNEL_ARCH))
 ifeq ($(TARGET_KERNEL_ARCH),)
