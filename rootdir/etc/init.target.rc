@@ -1,200 +1,90 @@
-# Copyright (c) 2014, The Linux Foundation. All rights reserved.
+# Copyright (c) 2009-2012, 2014, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are
-# met:
+# modification, are permitted provided that the following conditions are met:
 #     * Redistributions of source code must retain the above copyright
 #       notice, this list of conditions and the following disclaimer.
-#     * Redistributions in binary form must reproduce the above
-#       copyright notice, this list of conditions and the following
-#       disclaimer in the documentation and/or other materials provided
-#       with the distribution.
-#     * Neither the name of The Linux Foundation nor the names of its
-#       contributors may be used to endorse or promote products derived
-#       from this software without specific prior written permission.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of The Linux Foundation nor
+#       the names of its contributors may be used to endorse or promote
+#       products derived from this software without specific prior written
+#       permission.
 #
-# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
-# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
-# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
-# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
-# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NON-INFRINGEMENT ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-#
-
-on early-init
-    mkdir /firmware 0771 system system
-    mkdir /system 0777 root root
-    symlink /data/tombstones /tombstones
-
-on fs
-    mount_all fstab.qcom
-
-    mkdir /persist/data 0700 system system
-    restorecon_recursive /persist
-
-on post-fs-data
-    mkdir /data/tombstones 0771 system system
-    mkdir /tombstones/modem 0771 system system
-    mkdir /tombstones/lpass 0771 system system
-    mkdir /tombstones/wcnss 0771 system system
-    mkdir /tombstones/dsps 0771 system system
-    mkdir /persist/data/sfs 0700 system system
-    mkdir /persist/data/tz 0700 system system
-    mkdir /data/param 0771 system system
-
-#start camera server as daemon
-service qcamerasvr /system/bin/mm-qcamera-daemon
-    class late_start
-    user camera
-    group camera system inet input graphics
-
-#enable zram
-on property:ro.config.zram=true
-    swapon_all fstab.qcom
-
-# Allow usb charging to be disabled peristently
-on property:persist.usb.chgdisabled=1
-    write /sys/class/power_supply/battery/charging_enabled 0
-
-on property:persist.usb.chgdisabled=0
-    write /sys/class/power_supply/battery/charging_enabled 1
-
-service qrngd /system/bin/qrngd -f
-   class main
-   user root
-   group root
-
-service qrngp /system/bin/qrngp -f
-   class main
-   user root
-   group root
-   oneshot
-   disabled
-
-on property:sys.boot_completed=1
-   start qrngp
-
-service qseecomd /system/bin/qseecomd
-   class core
-   user root
-   group root
-
-#service aostlmd /system/bin/aostlmd
-#   class late_start
-#   user system
-#   group system net_raw
-
-service perfd /system/bin/perfd
-   class main
-   user root
-   disabled
-
-service thermal-engine /system/bin/thermal-engine
-   class main
-   user root
-   group root
-
-service time_daemon /system/bin/time_daemon
-   class late_start
-   user root
-   group root
-
-service audiod /system/bin/audiod
-   class late_start
-   user system
-   group system
 
 on boot
-    insmod /system/lib/modules/adsprpc.ko
+# LEWA BEGIN
+    #create /data/system/batteryd
+    mkdir /data/system 0755 system system
+    mkdir /data/system/batteryd
+    chown system system /data/system/batteryd
+# LEWA END
 
-service ppd /system/bin/mm-pp-daemon
-    class late_start
-    disabled
-    user system
-    socket pps stream 0660 system system
-    group system graphics
+    #Set SUID bit for usbhub
+    chmod 4755 /system/bin/usbhub
+    chmod 755 /system/bin/usbhub_init
 
-on property:init.svc.surfaceflinger=stopped
-    stop ppd
+    chown root system /sys/devices/soc.0/78b9000.i2c/i2c-5/5-005d/keypad_enable
+    chmod 0660 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-005d/keypad_enable
 
-on property:init.svc.surfaceflinger=running
-    start ppd
+    chown system system /sys/class/TP-UNLOCK/device/gesture
+    chmod 0660 /sys/class/TP-UNLOCK/device/gesture
 
-service wcnss-service /system/bin/wcnss_service
-    class main
-    user system
-    group system wifi radio
-    oneshot
+    setprop persist.sys.ssr.enable_ramdumps 1
 
-service imsqmidaemon /system/bin/imsqmidaemon
-    class main
-    user system
-    socket ims_qmid stream 0660 system radio
-    group radio net_raw log qcom_diag
+    setprop persist.sys.ssr.restart_level modem
 
-service imsdatadaemon /system/bin/imsdatadaemon
-    class main
-    user system
-    socket ims_datad stream 0660 system radio
-    group system wifi radio inet net_raw log qcom_diag net_admin
-    disabled
+    chmod 664 /dev/ramdump_*
 
-on property:sys.ims.QMI_DAEMON_STATUS=1
-    start imsdatadaemon
+    chown root system /sys/class/sensors/akm09911-mag/enable
+    chown root system /sys/class/sensors/akm09911-mag/calibrate
+    chown root system /sys/class/sensors/akm09911-mag/poll_delay
 
-service ims_rtp_daemon /system/bin/ims_rtp_daemon
-   class main
-   user system
-   socket ims_rtpd stream 0660 system radio
-   group radio net_raw diag qcom_diag log
-   disabled
+    #[BUGFIX] bug 956570,Enable the permission to set the CPU0 sampling min  freq from Power HAL.
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    #[BUGFIX] END
 
-on property:sys.ims.DATA_DAEMON_STATUS=1
-    start ims_rtp_daemon
+    chown system system /sys/class/leds/singal-light/brightness
+    chown system system /sys/class/leds/singal-light/blink
 
-service ppd /system/bin/mm-pp-daemon
-    class late_start
-    disabled
-    user system
-    socket pps stream 0660 system system
-    group system graphics
+    chown system system /sys/gtp_test/rawdata
+    chmod 0660 /sys/gtp_test/rawdata
 
-on property:init.svc.surfaceflinger=stopped
-    stop ppd
+    chmod 0660 /sys/class/input/input4/offset
+    chown input system /sys/class/input/input4/offset
+    chown system input /dev/input/event4
 
-on property:init.svc.surfaceflinger=running
-    start ppd
+    # sensors
+    chown system system /sys/class/sensors/MPU6050-accel/enable
+    chmod 0660 /sys/class/sensors/MPU6050-accel/enable
 
-on charger
-    wait /dev/block/bootdevice/by-name/persist
-    mount ext4 /dev/block/bootdevice/by-name/persist /persist rw barrier=1
-    mkdir /persist/data 0700 system system
-    restorecon_recursive /persist
-    wait /dev/block/bootdevice/by-name/system
-    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
-    chown root system /sys/class/power_supply/bms/current_now
-    chown root system /sys/class/power_supply/bms/voltage_ocv
-    chmod 0664 /sys/class/power_supply/bms/current_now
-    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
-    start vm_bms
-    load_all_props
-    start qcom-post-boot
-    class_start charger
+    chown system system /sys/class/sensors/akm09911-mag/enable
+    chmod 0660 /sys/class/sensors/akm09911-mag/enable
 
-service power_engine /system/bin/sh /system/etc/init.qcom.power.sh
-    class late_start
-    user root
-    group root
-    disabled
+    chown system system /sys/class/sensors/MPU6050-gyro/enable
+    chmod 0660 /sys/class/sensors/MPU6050-gyro/enable
 
-on property:persist.sys.power_ctrl=1
-    start power_engine
+    chmod 0664 /sys/class/sensors/ap3426-light/enable
+    chown system system /sys/class/sensors/ap3426-light/enable
 
-on property:persist.sys.power_ctrl=0
-    stop power_engine
+    chmod 0664 /sys/class/sensors/ap3426-proximity/enable
+    chown system system /sys/class/sensors/ap3426-proximity/enable
+
+
+on post-fs-data
+    # fixed permissions for qrngd
+    chmod 664 /dev/hw_random
