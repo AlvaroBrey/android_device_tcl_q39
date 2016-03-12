@@ -100,7 +100,6 @@ vendor/lib64/libmmcamera_imx214.so
 vendor/lib64/libchromatix_imx214_common.so
 vendor/lib64/libactuator_ad5823.so
 vendor/lib64/libCB.so
-vendor/lib64/libcalmodule_common.so
 vendor/lib64/libchromatix_s5k4h5_8916_hfr_120fps.so
 vendor/lib64/libtime_genoff.so
 vendor/lib64/librpmb.so
@@ -286,7 +285,6 @@ vendor/lib/libchromatix_ov8865_q8v18a_video_hd.so
 vendor/lib/libactuator_iu074_camcorder.so
 vendor/lib/libactuator_ad5823.so
 vendor/lib/libCB.so
-vendor/lib/libcalmodule_common.so
 vendor/lib/libchromatix_ov5648_p5v18g_preview.so
 vendor/lib/libchromatix_s5k4h5_8916_hfr_120fps.so
 vendor/lib/libtime_genoff.so
@@ -566,7 +564,6 @@ vendor/lib/libmmcamera_ov8858_q8v19w.so
 vendor/lib/libmmcamera_imx135.so
 vendor/lib/libchromatix_s5k3m2_f13s01k_default_video.so
 vendor/lib/libjpegdhw.so
-vendor/lib/libcalmodule_akm.so
 vendor/lib/libchromatix_imx132_default_video.so
 vendor/lib/libchromatix_s5k3l1yx_hfr_120fps.so
 vendor/lib/libchromatix_ov8858_q8v19w_hfr_120fps.so
