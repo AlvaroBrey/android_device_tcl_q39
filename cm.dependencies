@@ -14,6 +14,14 @@
   {
     "repository": "android_packages_apps_Snap",
     "target-path": "packages/apps/Snap",
+  },
+  {
+     "repository": "android_external_sony_boringssl-compat",
+     "target_path": "external/sony/boringssl-compat"
+     },
+  {
+     "repository": "android_external_stlport",
+     "target_path": "external/stlport"
   }
 
 ]
