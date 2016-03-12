@@ -1,18 +1,3 @@
- /*
- * Copyright (c) 2013-2014, The Linux Foundation. All rights reserved.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2 and
- * only version 2 as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * RMNET Data configuration specification
- */
-
 #ifndef _RMNET_DATA_H_
 #define _RMNET_DATA_H_
 
@@ -23,6 +8,8 @@
 #define RMNET_EGRESS_FORMAT_MAP                 (1<<1)
 #define RMNET_EGRESS_FORMAT_AGGREGATION         (1<<2)
 #define RMNET_EGRESS_FORMAT_MUXING              (1<<3)
+#define RMNET_EGRESS_FORMAT_MAP_CKSUMV3         (1<<4)
+#define RMNET_EGRESS_FORMAT_MAP_CKSUMV4         (1<<5)
 
 #define RMNET_INGRESS_FIX_ETHERNET              (1<<0)
 #define RMNET_INGRESS_FORMAT_MAP                (1<<1)
@@ -30,6 +17,7 @@
 #define RMNET_INGRESS_FORMAT_DEMUXING           (1<<3)
 #define RMNET_INGRESS_FORMAT_MAP_COMMANDS       (1<<4)
 #define RMNET_INGRESS_FORMAT_MAP_CKSUMV3        (1<<5)
+#define RMNET_INGRESS_FORMAT_MAP_CKSUMV4        (1<<6)
 
 /* ***************** Netlink API ******************************************** */
 #define RMNET_NETLINK_PROTO 31

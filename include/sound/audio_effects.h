@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013-2015, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -133,7 +133,51 @@
 #define EQ_BAND_BOOST	5
 #define EQ_BAND_CUT	6
 
+#define DTS_EAGLE_MODULE		0x00005000
+#define EAGLE_DRIVER_ID 0xF2
+#define DTS_EAGLE_IOCTL_GET_CACHE_SIZE _IOR(EAGLE_DRIVER_ID, 0, int)
+#define DTS_EAGLE_IOCTL_SET_CACHE_SIZE _IOW(EAGLE_DRIVER_ID, 1, int)
+#define DTS_EAGLE_IOCTL_GET_PARAM _IOR(EAGLE_DRIVER_ID, 2, void*)
+#define DTS_EAGLE_IOCTL_SET_PARAM _IOW(EAGLE_DRIVER_ID, 3, void*)
+#define DTS_EAGLE_IOCTL_SET_CACHE_BLOCK _IOW(EAGLE_DRIVER_ID, 4, void*)
+#define DTS_EAGLE_IOCTL_SET_ACTIVE_DEVICE _IOW(EAGLE_DRIVER_ID, 5, void*)
+#define DTS_EAGLE_IOCTL_GET_LICENSE _IOR(EAGLE_DRIVER_ID, 6, void*)
+#define DTS_EAGLE_IOCTL_SET_LICENSE _IOW(EAGLE_DRIVER_ID, 7, void*)
+#define DTS_EAGLE_IOCTL_SEND_LICENSE _IOW(EAGLE_DRIVER_ID, 8, int)
+#define DTS_EAGLE_IOCTL_SET_VOLUME_COMMANDS _IOW(EAGLE_DRIVER_ID, 9, void*)
 
+struct dts_eagle_param_desc {
+	__u32 id;
+	__s32 size;
+	__s32 offset;
+	__u32 device;
+} __packed;
+
+#define SOFT_VOLUME_MODULE		0x00006000
+#define SOFT_VOLUME_ENABLE		0x00006001
+#define SOFT_VOLUME_GAIN_2CH		0x00006002
+#define SOFT_VOLUME_GAIN_MASTER		0x00006003
+#define SOFT_VOLUME_ENABLE_PARAM_LEN		1
+#define SOFT_VOLUME_GAIN_2CH_PARAM_LEN		2
+#define SOFT_VOLUME_GAIN_MASTER_PARAM_LEN	1
+
+#define SOFT_VOLUME2_MODULE		0x00007000
+#define SOFT_VOLUME2_ENABLE		0x00007001
+#define SOFT_VOLUME2_GAIN_2CH		0x00007002
+#define SOFT_VOLUME2_GAIN_MASTER	0x00007003
+#define SOFT_VOLUME2_ENABLE_PARAM_LEN		SOFT_VOLUME_ENABLE_PARAM_LEN
+#define SOFT_VOLUME2_GAIN_2CH_PARAM_LEN		SOFT_VOLUME_GAIN_2CH_PARAM_LEN
+#define SOFT_VOLUME2_GAIN_MASTER_PARAM_LEN	\
+					SOFT_VOLUME_GAIN_MASTER_PARAM_LEN
+
+#define PBE_CONF_MODULE_ID	0x00010C2A
+#define PBE_CONF_PARAM_ID	0x00010C49
+
+#define PBE_MODULE		0x00008000
+#define PBE_ENABLE		0x00008001
+#define PBE_CONFIG		0x00008002
+#define PBE_ENABLE_PARAM_LEN		1
+#define PBE_CONFIG_PARAM_LEN		28
 
 #define COMMAND_PAYLOAD_LEN	3
 #define COMMAND_PAYLOAD_SZ	(COMMAND_PAYLOAD_LEN * sizeof(uint32_t))
@@ -278,6 +322,64 @@ struct eq_params {
 	struct eq_per_band_freq_range_t per_band_freq_range[MAX_EQ_BANDS];
 	uint32_t band_index;
 	uint32_t freq_millihertz;
+};
+
+#define PBE_ENABLE_PARAM_SZ	\
+			(PBE_ENABLE_PARAM_LEN*sizeof(uint32_t))
+#define PBE_CONFIG_PARAM_SZ	\
+			(PBE_CONFIG_PARAM_LEN*sizeof(uint16_t))
+struct pbe_config_t {
+	int16_t  real_bass_mix;
+	int16_t  bass_color_control;
+	uint16_t main_chain_delay;
+	uint16_t xover_filter_order;
+	uint16_t bandpass_filter_order;
+	int16_t  drc_delay;
+	uint16_t rms_tav;
+	int16_t exp_threshold;
+	uint16_t exp_slope;
+	int16_t comp_threshold;
+	uint16_t comp_slope;
+	uint16_t makeup_gain;
+	uint32_t comp_attack;
+	uint32_t comp_release;
+	uint32_t exp_attack;
+	uint32_t exp_release;
+	int16_t limiter_bass_threshold;
+	int16_t limiter_high_threshold;
+	int16_t limiter_bass_makeup_gain;
+	int16_t limiter_high_makeup_gain;
+	int16_t limiter_bass_gc;
+	int16_t limiter_high_gc;
+	int16_t  limiter_delay;
+	uint16_t reserved;
+	/* place holder for filter coeffs to be followed */
+	int32_t p1LowPassCoeffs[5*2];
+	int32_t p1HighPassCoeffs[5*2];
+	int32_t p1BandPassCoeffs[5*3];
+	int32_t p1BassShelfCoeffs[5];
+	int32_t p1TrebleShelfCoeffs[5];
+} __packed;
+
+struct pbe_params {
+	uint32_t device;
+	uint32_t enable_flag;
+	uint32_t cfg_len;
+	struct pbe_config_t config;
+};
+
+#define SOFT_VOLUME_ENABLE_PARAM_SZ		\
+			(SOFT_VOLUME_ENABLE_PARAM_LEN*sizeof(uint32_t))
+#define SOFT_VOLUME_GAIN_MASTER_PARAM_SZ	\
+			(SOFT_VOLUME_GAIN_MASTER_PARAM_LEN*sizeof(uint32_t))
+#define SOFT_VOLUME_GAIN_2CH_PARAM_SZ		\
+			(SOFT_VOLUME_GAIN_2CH_PARAM_LEN*sizeof(uint16_t))
+struct soft_volume_params {
+	uint32_t device;
+	uint32_t enable_flag;
+	uint32_t master_gain;
+	uint32_t left_gain;
+	uint32_t right_gain;
 };
 
 #endif /*_MSM_AUDIO_EFFECTS_H*/
