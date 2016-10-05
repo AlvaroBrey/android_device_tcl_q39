@@ -1,4 +1,4 @@
-# Copyright (C) 2016 The CyanogenMod Project
+# Copyright (C) 2014 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,24 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Inherit from the common Open Source product configuration
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-
-# Inherit from the hardware-specific part of the product configuration
-$(call inherit-product, device/tcl/q39/device.mk)
+$(call inherit-product, device/tcl/q39/full_q39.mk)
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
+# Must define platform variant before including any common things
+TARGET_BOARD_PLATFORM_VARIANT := msm8916
 
-# Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := q39
 PRODUCT_NAME := cm_q39
-PRODUCT_BRAND := TCL
-PRODUCT_MODEL := M3G
-PRODUCT_MANUFACTURER := TCL
+BOARD_VENDOR := tcl
+PRODUCT_DEVICE := q39
 
-PRODUCT_GMS_CLIENTID_BASE := android-tcl
+PRODUCT_GMS_CLIENTID_BASE := android-micromax
 
+TARGET_VENDOR_PRODUCT_NAME := M3G
+TARGET_VENDOR_DEVICE_NAME := M3G
+PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=M3G PRODUCT_NAME=M3G
+
+## Use the latest approved GMS identifiers unless running a signed build
+ifneq ($(SIGN_BUILD),true)
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRODUCT_NAME=q39
+    BUILD_FINGERPRINT=TCL/TCL_M3G/EVOQUE:5.1.1/LRX22G/TCL_M3G_V4.0:user/release-keys \
+	PRIVATE_BUILD_DESC="q39-user 5.1.1 LRX22G TCL_M3G_SV1.6.1 release-keys"
+endif

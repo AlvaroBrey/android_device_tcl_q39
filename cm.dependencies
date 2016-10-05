@@ -4,24 +4,11 @@
     "target_path": "device/qcom/common"
   },
   {
-    "repository": "android_external_mm-dash",
-    "target_path": "external/mm-dash"
+    "repository": "android_device_cyanogen_msm8916-common",
+    "target_path": "device/cyanogen/msm8916-common"
   },
   {
-    "repository": "android_hardware_qcom_fm",
-    "target_path": "hardware/qcom/fm"
-  },
-  {
-    "repository": "android_packages_apps_Snap",
-    "target-path": "packages/apps/Snap",
-  },
-  {
-     "repository": "android_external_sony_boringssl-compat",
-     "target_path": "external/sony/boringssl-compat"
-     },
-  {
-     "repository": "android_external_stlport",
-     "target_path": "external/stlport"
+    "repository": "android_external_sony_boringssl-compat",
+    "target_path": "external/sony/boringssl-compat"
   }
-
 ]

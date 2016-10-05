@@ -5,7 +5,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+# http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,19 +14,16 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := $(call my-dir)
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-include $(CLEAR_VARS)
+# Inherit from q39 device
+$(call inherit-product, device/tcl/q39/device.mk)
 
-#----------------------------------------------------------------------
-# Radio image
-#----------------------------------------------------------------------
-
-ifeq ($(ADD_RADIO_FILES), true)
-radio_dir := $(LOCAL_PATH)/radio
-RADIO_FILES := $(shell cd $(radio_dir) ; ls)
-$(foreach f, $(RADIO_FILES), \
-    $(call add-radio-file,radio/$(f)))
-
-INSTALLED_RADIOIMAGE_TARGET += $(TARGET_BOOTLOADER_EMMC_INTERNAL)
-endif
+# Device identifier. This must come after all inclusions
+PRODUCT_DEVICE := q39
+PRODUCT_NAME := full_q39
+PRODUCT_BRAND := TCL
+PRODUCT_MODEL := M3G
+PRODUCT_MANUFACTURER := TCL
