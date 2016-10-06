@@ -25,6 +25,10 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+on init
+    # Boringssl hacks
+    export LD_PRELOAD "libboringssl-compat.so"
+
 on boot
 # LEWA BEGIN
     #create /data/system/batteryd
