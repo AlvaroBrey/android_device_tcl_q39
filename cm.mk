@@ -25,7 +25,7 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 PRODUCT_DEVICE := q39
 PRODUCT_NAME := cm_q39
 PRODUCT_BRAND := TCL
-PRODUCT_MODEL := M3G
+PRODUCT_MODEL := TCL M3G
 PRODUCT_MANUFACTURER := TCL
 
 PRODUCT_GMS_CLIENTID_BASE := android-tcl
