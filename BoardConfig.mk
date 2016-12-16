@@ -197,5 +197,8 @@ TARGET_RECOVERY_FSTAB := device/tcl/q39/recovery/recovery.fstab
 # Video
 TARGET_HAVE_SIGNED_VENUS_FW := true
 
+# VoLTE audio
+AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
+
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
