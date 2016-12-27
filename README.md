@@ -1,3 +1,5 @@
+**DEVELOPMENT IS HALTED**
+
 Device tree for TCL M3G
 
 Author: ontherunvaro
